@@ -18,10 +18,19 @@ h1{
   font-size: 120px;
 }
 .close{color: skyblue;}
+.items{color: gray;}
 
 .container{
   background-color: rgb(214, 214, 211);
   width: 800px;
   height: 700px;
  
+}
+
+.close {
+  display: none;
+}
+
+li:hover .close{
+  display: block;
 }

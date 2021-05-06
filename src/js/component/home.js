@@ -10,7 +10,6 @@ export function Home() {
 		//Esta funcion se activa con el onChange del input
 		e.preventDefault();
 		setNewTodo(e.target.value); // el event target es el input, y luego queremos de ese input el value. lo que obtengamos aquí va a ser el newTodo
-		//console.log(e.target.value)
 	}
 
 	//función que guarda el estado en un objeto cuando ingresamos un todo en el input
@@ -28,7 +27,7 @@ export function Home() {
 	}
 
 	//funcion que elimina los todo
-	function removeTodo(id) {
+	function Remove(id) {
 		setTodos(todos.filter(todo => todo.id !== id)); //solo retorna el todo si el todo.id no es igual al id
 	}
 
@@ -57,15 +56,14 @@ export function Home() {
 									<button
 										type="button"
 										className="close"
-										aria-label="Close"
-										onClick={() => removeTodo(todo.id)}>
+										onClick={() => Remove(todo.id)}>
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</li>
 							))}
 						</ul>
-						<div className="col border border-secondary mb-5">
-							<small className="text-white">
+						<div className="col mb-5">
+							<small className="items">
 								{todos.length} items left
 							</small>
 						</div>
