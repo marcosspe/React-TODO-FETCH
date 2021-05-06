@@ -5,30 +5,23 @@ export function Home() {
 	const [newTodo, setNewTodo] = useState("");
 	const [todos, setTodos] = useState([]);
 
-	//función que está atenta a los cambios en el input
 	function listenInput(e) {
-		//Esta funcion se activa con el onChange del input
 		e.preventDefault();
-		setNewTodo(e.target.value); // el event target es el input, y luego queremos de ese input el value. lo que obtengamos aquí va a ser el newTodo
+		setNewTodo(e.target.value);
 	}
 
-	//función que guarda el estado en un objeto cuando ingresamos un todo en el input
 	function New(e) {
-		//Esta funcion se activa por el form onsubmit, acá obtenemos el valor que proviene del input de newTodo
 		e.preventDefault();
 		if (newTodo === "") return;
 		setTodos([
 			...todos,
 			{ id: Date.now(), text: newTodo, numero: todos.length + 1 }
-		]); //acá vamos a obtener todos los todos y los vamos a agregar en el array [] en forma de objeto
+		]);
 		e.target.reset();
-		//console.log(newTodo) // imprime lo que ingresas en el input luego de apretar enter
-		//console.log(todos.length +1)  //imprime la cantidad de items de la lista todos
 	}
 
-	//funcion que elimina los todo
 	function Remove(id) {
-		setTodos(todos.filter(todo => todo.id !== id)); //solo retorna el todo si el todo.id no es igual al id
+		setTodos(todos.filter(todo => todo.id !== id));
 	}
 
 	return (
@@ -50,8 +43,8 @@ export function Home() {
 							}
 							onChange={listenInput}></input>
 						<ul className="list-group border border-secondary">
-							{todos.map(todo => (
-								<li className="list-group-item" key={todo.id}>
+							{todos.map((todo, index) => (
+								<li className="list-group-item" key={index}>
 									{todo.text}
 									<button
 										type="button"
