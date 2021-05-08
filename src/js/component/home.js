@@ -1,9 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //create your first component
 export function Home() {
 	const [newTodo, setNewTodo] = useState("");
 	const [todos, setTodos] = useState([]);
+
+	useEffect(() => {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/marcosspe", {
+			method: "PUT",
+			body: JSON.stringify(
+				todos.map(label => {
+					return { label: label, done: false };
+				})
+			),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(resp => resp.json())
+			.then(data => console.log(data))
+			.catch(error => console.log(error));
+	}, [todos]);
+
+	function clearAll() {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/marcosspe", {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(resp => {
+				console.log(resp);
+				return resp.json();
+			})
+			.then(data => {
+				console.log(data);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}
 
 	function listenInput(e) {
 		e.preventDefault();
@@ -20,18 +56,20 @@ export function Home() {
 		e.target.reset();
 	}
 
-	function Remove(id) {
-		setTodos(todos.filter(todo => todo.id !== id));
-	}
+	const Delete = id => {
+		const arrFilter = todos.filter(item => item.id !== id);
+		setTodos(arrFilter);
+	};
 
 	return (
 		<div className="container">
+			<div>
+				<h1 className="titulo text-secondary d-flex justify-content-center">
+					todos
+				</h1>
+			</div>
 			<div className="row justify-content-center mt-5 ">
-				<div className="col-4">
-					<h1 className="titulo d-flex justify-content-center text-secondary">
-						todos
-					</h1>
-
+				<div className="col">
 					<form onSubmit={New}>
 						<input
 							type="text"
@@ -49,18 +87,27 @@ export function Home() {
 									<button
 										type="button"
 										className="close"
-										onClick={() => Remove(todo.id)}>
+										onClick={() => Delete(todo.id)}>
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</li>
 							))}
 						</ul>
+
 						<div className="col mb-5">
 							<small className="items">
 								{todos.length} items left
 							</small>
 						</div>
 					</form>
+				</div>
+				<div className="col-2">
+					<button
+						type="button"
+						className="btn btn-info btn-sm btn-block mb-2"
+						onClick={clearAll}>
+						Clean
+					</button>
 				</div>
 			</div>
 		</div>
