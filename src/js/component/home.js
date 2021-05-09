@@ -7,6 +7,26 @@ export function Home() {
 
 	useEffect(() => {
 		fetch("https://assets.breatheco.de/apis/fake/todos/user/marcosspe", {
+			method: "POST",
+			body: JSON.stringify([]),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(resp => {
+				console.log(resp);
+				return resp.json();
+			})
+			.then(data => {
+				console.log(data);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}, []);
+
+	useEffect(() => {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/marcosspe", {
 			method: "PUT",
 			body: JSON.stringify(
 				todos.map(label => {
