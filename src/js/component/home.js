@@ -121,14 +121,14 @@ export function Home() {
 						</div>
 					</form>
 				</div>
-				<div className="col-2">
+				{/* <div className="col-2">
 					<button
 						type="button"
 						className="btn btn-info btn-sm btn-block mb-2"
 						onClick={clearAll}>
 						Clean
 					</button>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);
